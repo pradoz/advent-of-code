@@ -1,6 +1,6 @@
 use aoc_utils::parse_lines;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 enum Direction {
     Left,
     Right,
@@ -67,21 +67,19 @@ impl Dial {
 
     fn execute(&mut self, action: &Action) -> (i32, i32) {
         let mut crosses_during = 0;
-        let mut ends_at_zero = 0;
 
         for _ in 0..action.distance {
-            if self.step(action.direction.clone()) {
+            if self.step(action.direction) {
                 crosses_during += 1;
             }
         }
 
         if self.position == 0 {
-            ends_at_zero = 1;
             // if we end at 0, it was counted in crosses_during
             crosses_during -= 1;
         }
 
-        (ends_at_zero, crosses_during)
+        (if self.position == 0 { 1 } else { 0 }, crosses_during)
     }
 }
 
@@ -122,6 +120,17 @@ fn main() -> std::io::Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    const TEST_INPUT: &str = "\
+        L68
+        L30
+        R48
+        L5
+        R60
+        L55
+        L1
+        L99
+        R14
+        L82";
 
     #[test]
     fn test_direction_from_char() {
@@ -172,19 +181,7 @@ mod tests {
 
     #[test]
     fn test_day_1_part1() {
-        let input = "\
-            L68
-            L30
-            R48
-            L5
-            R60
-            L55
-            L1
-            L99
-            R14
-            L82";
-
-        let actions: Vec<Action> = input
+        let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))
             .collect();
@@ -193,19 +190,7 @@ mod tests {
 
     #[test]
     fn test_day_1_part2() {
-        let input = "\
-            L68
-            L30
-            R48
-            L5
-            R60
-            L55
-            L1
-            L99
-            R14
-            L82";
-
-        let actions: Vec<Action> = input
+        let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))
             .collect();
