@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "aoc_utils",
+    "2025/day1",
+    # "2025/day2",
+]
+
+resolver = "2"
