@@ -21,6 +21,19 @@ where
     Ok(lines.iter().filter_map(|line| parser(line)).collect())
 }
 
+pub fn parse_lines_split<P, T, F>(path: P, separator: &str, parser: F) -> io::Result<Vec<T>>
+where
+    P: AsRef<Path>,
+    F: Fn(&str) -> Option<T>,
+{
+    let lines = read_lines(path)?;
+    Ok(lines
+        .iter()
+        .flat_map(|line| line.split(separator))
+        .filter_map(|item| parser(item))
+        .collect())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
