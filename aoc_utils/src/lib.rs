@@ -53,6 +53,21 @@ where
         .collect())
 }
 
+pub fn parse_sections_split<P, T, F>(path: P, parser: F) -> io::Result<T>
+where
+    P: AsRef<Path>,
+    F: Fn(Vec<Vec<String>>) -> io::Result<T>,
+{
+    let content = std::fs::read_to_string(path)?;
+
+    let sections = content
+        .split("\n\n")
+        .map(|s| s.lines().map(String::from).collect())
+        .collect();
+
+    parser(sections)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
