@@ -196,12 +196,16 @@ mod tests {
         ]
     }
 
-    #[test]
-    fn test_battery_parse() {
-        let power_banks: Vec<PowerBank> = TEST_INPUT_FULL
+    fn parse_test_input() -> Vec<PowerBank> {
+        TEST_INPUT_FULL
             .split("\n")
             .filter_map(|item| PowerBank::parse(item))
-            .collect();
+            .collect()
+    }
+
+    #[test]
+    fn test_battery_parse() {
+        let power_banks = parse_test_input();
         for b in power_banks {
             assert_eq!(b.len(), 15);
         }
@@ -241,20 +245,14 @@ mod tests {
     }
 
     #[test]
-    fn test_day_3_part1() {
-        let power_banks: Vec<PowerBank> = TEST_INPUT_FULL
-            .split("\n")
-            .filter_map(|item| PowerBank::parse(item))
-            .collect();
+    fn test_part1() {
+        let power_banks = parse_test_input();
         assert_eq!(part1(&power_banks), 357);
     }
 
     #[test]
-    fn test_day_3_part2() {
-        let power_banks: Vec<PowerBank> = TEST_INPUT_FULL
-            .split("\n")
-            .filter_map(|item| PowerBank::parse(item))
-            .collect();
+    fn test_part2() {
+        let power_banks = parse_test_input();
         assert_eq!(part2(&power_banks), 3121910778619);
     }
 }

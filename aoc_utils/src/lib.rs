@@ -34,6 +34,25 @@ where
         .collect())
 }
 
+pub fn parse_grid<P, T, F>(path: P, parser: F) -> io::Result<Vec<Vec<T>>>
+where
+    P: AsRef<Path>,
+    F: Fn(usize, usize, char) -> T,
+{
+    let lines = read_lines(path)?;
+    Ok(lines
+        .iter()
+        .enumerate()
+        .filter(|(_, line)| !line.trim().is_empty())
+        .map(|(row_index, line)| {
+            line.chars()
+                .enumerate()
+                .map(|(col_index, c)| parser(row_index, col_index, c))
+                .collect()
+        })
+        .collect())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

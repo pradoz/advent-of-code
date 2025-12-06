@@ -213,7 +213,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part1_iterative() {
+    fn test_part1_iterative() {
         let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))
@@ -222,7 +222,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part2_iterative() {
+    fn test_part2_iterative() {
         let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))
@@ -231,7 +231,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part1_math() {
+    fn test_part1_math() {
         let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))
@@ -240,7 +240,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part2_math() {
+    fn test_part2_math() {
         let actions: Vec<Action> = TEST_INPUT
             .lines()
             .filter_map(|line| Action::parse(line))

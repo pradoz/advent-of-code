@@ -191,7 +191,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part1() {
+    fn test_part1() {
         let range_pairs: Vec<RangePair> = FULL_TEST_INPUT
             .split(",")
             .filter_map(|item| RangePair::parse(item))
@@ -200,7 +200,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_1_part2() {
+    fn test_part2() {
         let range_pairs: Vec<RangePair> = FULL_TEST_INPUT
             .split(",")
             .filter_map(|item| RangePair::parse(item))
