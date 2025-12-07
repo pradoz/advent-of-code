@@ -82,11 +82,11 @@ impl Dial {
         (if self.position == 0 { 1 } else { 0 }, crosses_during)
     }
 
-    fn execute_math(&mut self, action: &Action) -> (i32, i32) {
-        let start = self.position;
-        let delta = action.direction.step() * action.distance;
-        let end = (start + delta).rem_euclid(self.modulo);
-    }
+    // fn execute_math(&mut self, action: &Action) -> (i32, i32) {
+    //     let start = self.position;
+    //     let delta = action.direction.step() * action.distance;
+    //     let end = (start + delta).rem_euclid(self.modulo);
+    // }
 }
 
 fn part1(actions: &[Action]) -> i32 {
@@ -113,29 +113,29 @@ fn part2(actions: &[Action]) -> i32 {
     count
 }
 
-fn part1_math(actions: &[Action]) -> i32 {
-    let mut dial = Dial::new(50, 100);
-    let mut count = 0;
-
-    for action in actions {
-        let (ends_at_zero, _) = dial.execute_math(action);
-        count += ends_at_zero;
-    }
-
-    count
-}
-
-fn part2_math(actions: &[Action]) -> i32 {
-    let mut dial = Dial::new(50, 100);
-    let mut count = 0;
-
-    for action in actions {
-        let (ends_at_zero, crosses_during) = dial.execute_math(action);
-        count += ends_at_zero + crosses_during;
-    }
-
-    count
-}
+// fn part1_math(actions: &[Action]) -> i32 {
+//     let mut dial = Dial::new(50, 100);
+//     let mut count = 0;
+//
+//     for action in actions {
+//         let (ends_at_zero, _) = dial.execute_math(action);
+//         count += ends_at_zero;
+//     }
+//
+//     count
+// }
+//
+// fn part2_math(actions: &[Action]) -> i32 {
+//     let mut dial = Dial::new(50, 100);
+//     let mut count = 0;
+//
+//     for action in actions {
+//         let (ends_at_zero, crosses_during) = dial.execute_math(action);
+//         count += ends_at_zero + crosses_during;
+//     }
+//
+//     count
+// }
 
 fn main() -> std::io::Result<()> {
     let actions = parse_lines("2025/day1/input.txt", Action::parse)?;
@@ -144,8 +144,8 @@ fn main() -> std::io::Result<()> {
     println!("Part 1: {}", part1(&actions));
     println!("Part 2: {}", part2(&actions));
 
-    println!("Part 1[math]: {}", part1_math(&actions));
-    println!("Part 2[math]: {}", part2_math(&actions));
+    // println!("Part 1[math]: {}", part1_math(&actions));
+    // println!("Part 2[math]: {}", part2_math(&actions));
 
     Ok(())
 }
@@ -230,21 +230,21 @@ mod tests {
         assert_eq!(part2(&actions), 6);
     }
 
-    #[test]
-    fn test_part1_math() {
-        let actions: Vec<Action> = TEST_INPUT
-            .lines()
-            .filter_map(|line| Action::parse(line))
-            .collect();
-        assert_eq!(part1_math(&actions), 3);
-    }
+    // #[test]
+    // fn test_part1_math() {
+    //     let actions: Vec<Action> = TEST_INPUT
+    //         .lines()
+    //         .filter_map(|line| Action::parse(line))
+    //         .collect();
+    //     assert_eq!(part1_math(&actions), 3);
+    // }
 
-    #[test]
-    fn test_part2_math() {
-        let actions: Vec<Action> = TEST_INPUT
-            .lines()
-            .filter_map(|line| Action::parse(line))
-            .collect();
-        assert_eq!(part2_math(&actions), 6);
-    }
+    // #[test]
+    // fn test_part2_math() {
+    //     let actions: Vec<Action> = TEST_INPUT
+    //         .lines()
+    //         .filter_map(|line| Action::parse(line))
+    //         .collect();
+    //     assert_eq!(part2_math(&actions), 6);
+    // }
 }
