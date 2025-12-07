@@ -40,3 +40,10 @@ version = "0.1.0"
 dependencies = [
  "aoc_utils",
 ]
+
+[[package]]
+name = "day6"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]

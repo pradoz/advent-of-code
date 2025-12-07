@@ -21,6 +21,15 @@ where
     Ok(lines.iter().filter_map(|line| parser(line)).collect())
 }
 
+pub fn parse_file<P, T, F>(path: P, parser: F) -> io::Result<T>
+where
+    P: AsRef<Path>,
+    F: Fn(Vec<String>) -> io::Result<T>,
+{
+    let lines = read_lines(path)?;
+    parser(lines)
+}
+
 pub fn parse_lines_split<P, T, F>(path: P, separator: &str, parser: F) -> io::Result<Vec<T>>
 where
     P: AsRef<Path>,
