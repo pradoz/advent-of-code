@@ -10,7 +10,7 @@ struct FreshRange {
 
 impl FreshRange {
     fn new(start: IngredientId, end: IngredientId) -> Self {
-        Self{ start, end }
+        Self { start, end }
     }
 
     fn parse(line: &str) -> Option<Self> {
@@ -29,16 +29,12 @@ impl FreshRange {
     }
 
     fn merge(&self, other: &FreshRange) -> FreshRange {
-        FreshRange::new(
-            self.start.min(other.start),
-            self.end.max(other.end),
-        )
+        FreshRange::new(self.start.min(other.start), self.end.max(other.end))
     }
 
     fn count(&self) -> u64 {
         self.end - self.start + 1
     }
-
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -49,7 +45,10 @@ struct Database {
 
 impl Database {
     fn new(fresh_ranges: Vec<FreshRange>, available_ids: Vec<IngredientId>) -> Self {
-        Self{ fresh_ranges, available_ids }
+        Self {
+            fresh_ranges,
+            available_ids,
+        }
     }
 
     fn parse(sections: Vec<Vec<String>>) -> std::io::Result<Self> {
@@ -109,10 +108,7 @@ fn part1(db: &Database) -> usize {
 }
 
 fn part2(db: &Database) -> u64 {
-    db.merge_ranges()
-        .iter()
-        .map(|range| range.count())
-        .sum()
+    db.merge_ranges().iter().map(|range| range.count()).sum()
 }
 
 fn main() -> std::io::Result<()> {
@@ -151,13 +147,16 @@ mod tests {
     #[test]
     fn test_parse() {
         let db = parse_test_input();
-        assert_eq!(db.fresh_ranges, vec![
-            FreshRange{ start: 3, end: 5 },
-            FreshRange{ start: 10, end: 14 },
-            FreshRange{ start: 16, end: 20 },
-            FreshRange{ start: 12, end: 18 },
-        ]);
-        assert_eq!(db.available_ids, vec![1, 5, 8,11,17,32]);
+        assert_eq!(
+            db.fresh_ranges,
+            vec![
+                FreshRange { start: 3, end: 5 },
+                FreshRange { start: 10, end: 14 },
+                FreshRange { start: 16, end: 20 },
+                FreshRange { start: 12, end: 18 },
+            ]
+        );
+        assert_eq!(db.available_ids, vec![1, 5, 8, 11, 17, 32]);
     }
 
     #[test]

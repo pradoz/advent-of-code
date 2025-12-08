@@ -81,9 +81,7 @@ impl Worksheet {
         for col in 0..num_problems {
             let numbers: Vec<u64> = split_lines
                 .iter()
-                .filter_map(|row| {
-                    row.get(col).and_then(|s| s.parse().ok())
-                })
+                .filter_map(|row| row.get(col).and_then(|s| s.parse().ok()))
                 .collect();
 
             if col < operations.len() {
@@ -97,11 +95,7 @@ impl Worksheet {
     fn parse_right_to_left(number_lines: &[String], operations: &[char]) -> Vec<Problem> {
         let split_lines: Vec<Vec<String>> = number_lines
             .iter()
-            .map(|line| {
-                line.split_whitespace()
-                    .map(|s| s.to_string())
-                    .collect()
-            })
+            .map(|line| line.split_whitespace().map(|s| s.to_string()).collect())
             .collect();
 
         if split_lines.is_empty() {
@@ -129,7 +123,11 @@ impl Worksheet {
                 .iter()
                 .map(|line| {
                     let end = (skip + width).min(line.len());
-                    let slice = if skip < line.len() { &line[skip..end] } else { "" };
+                    let slice = if skip < line.len() {
+                        &line[skip..end]
+                    } else {
+                        ""
+                    };
                     format!("{:width$}", slice, width = width)
                 })
                 .collect();
@@ -160,16 +158,13 @@ impl Worksheet {
     }
 }
 
-
 fn part1(ws: &Worksheet) -> u64 {
     ws.solve(false)
 }
 
-
 fn part2(ws: &Worksheet) -> u64 {
     ws.solve(true)
 }
-
 
 fn main() -> std::io::Result<()> {
     let ws = parse_file("2025/day6/input.txt", Worksheet::parse)?;
@@ -192,10 +187,7 @@ mod tests {
 *   +   *   +";
 
     fn parse_test_input() -> Worksheet {
-        let lines: Vec<String> = TEST_INPUT_FULL
-            .lines()
-            .map(|s| s.to_string())
-            .collect();
+        let lines: Vec<String> = TEST_INPUT_FULL.lines().map(|s| s.to_string()).collect();
         Worksheet::parse(lines).unwrap()
     }
 

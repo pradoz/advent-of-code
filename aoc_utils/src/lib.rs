@@ -62,6 +62,22 @@ where
         .collect())
 }
 
+pub trait FromGrid: Sized {
+    type Element;
+
+    fn parse_element(row: usize, col: usize, c: char) -> Self::Element;
+    fn from_grid(grid: Vec<Vec<Self::Element>>) -> Self;
+}
+
+pub fn parse_grid_from<P, T>(path: P) -> io::Result<T>
+where
+    P: AsRef<Path>,
+    T: FromGrid,
+{
+    let grid_data = parse_grid(path, T::parse_element)?;
+    Ok(T::from_grid(grid_data))
+}
+
 pub fn parse_sections_split<P, T, F>(path: P, parser: F) -> io::Result<T>
 where
     P: AsRef<Path>,
